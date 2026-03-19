@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { db } from './firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import { styles } from "./styles";
 import './App.css'
 
 function App() {
@@ -8,4 +9,4 @@ function App() {
 
 }
 
-export default App
+export default App;
