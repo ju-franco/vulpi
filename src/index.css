@@ -5,8 +5,9 @@
   font-family: 'Poppins', sans-serif; /* Define como padrão para tudo */
 }
 
-html, body, #root {
-  width: 100%;
-  height: 100%;
-  overflow: hidden; /* Trava o scroll no login */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: auto;
+  overflow-y: auto;
 }

@@ -1,3 +1,12 @@
+
+
+// Oioi Kaskas, fiz esse código só para eu conseguir  cadastrar uns itens e visualizar como ficaria a estilização
+// dos cards. Pode apagar se quiser e começçar doo zero ou  reutilizar e modicar algumas coisas.
+
+
+
+
+
 import React, { useState, useEffect } from "react";
 import { styles } from "../styles";
 import Navbar from "../components/Navbar";
