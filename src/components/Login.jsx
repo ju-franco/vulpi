@@ -107,7 +107,7 @@ export default function Login() {
       <div style={styles.containerCentral}>
         <div style={styles.cardBranco}>
           <img
-            src="logo-preta.png"
+            src="/public/logo-preta-sem-fundo.png"
             alt="Vulpi Logo"
             style={styles.logoLogin}
           />

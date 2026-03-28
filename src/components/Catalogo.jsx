@@ -1,12 +1,3 @@
-
-
-// Oioi Kaskas, fiz esse código só para eu conseguir  cadastrar uns itens e visualizar como ficaria a estilização
-// dos cards. Pode apagar se quiser e começçar doo zero ou  reutilizar e modicar algumas coisas.
-
-
-
-
-
 import React, { useState, useEffect } from "react";
 import { styles } from "../styles";
 import Navbar from "../components/Navbar";
@@ -14,12 +5,40 @@ import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { IoMdPin } from "react-icons/io";
 
+// ÍCONES DAS CATEGORIAS
+import {
+  IoPhonePortraitOutline,
+  IoShirtOutline,
+  IoCreateOutline,
+  IoDocumentTextOutline,
+  IoWatchOutline,
+  IoKeyOutline,
+  IoWaterOutline,
+  IoCardOutline,
+  IoBagOutline,
+  IoEllipsisHorizontalCircleOutline,
+} from "react-icons/io5";
+
 export default function Catalogo() {
   const [itens, setItens] = useState([]);
   const [busca, setBusca] = useState("");
-  const [categoria, setCategoria] = useState("");
+  const [filtros, setFiltros] = useState([]);
   const [modalItem, setModalItem] = useState(null);
   const [aceitou, setAceitou] = useState(false);
+
+  // LISTA DE CATEGORIAS + ÍCONES
+  const categorias = [
+    { id: "eletronico", label: "Eletrônico", icon: <IoPhonePortraitOutline /> },
+    { id: "roupa", label: "Roupa", icon: <IoShirtOutline /> },
+    { id: "material", label: "Material", icon: <IoCreateOutline /> },
+    { id: "documento", label: "Documento", icon: <IoDocumentTextOutline /> },
+    { id: "acessorio", label: "Acessório", icon: <IoWatchOutline /> },
+    { id: "chave", label: "Chave", icon: <IoKeyOutline /> },
+    { id: "garrafa", label: "Garrafa", icon: <IoWaterOutline /> },
+    { id: "cartao", label: "Cartão", icon: <IoCardOutline /> },
+    { id: "mochila", label: "Mochila", icon: <IoBagOutline /> },
+    { id: "outros", label: "Outros", icon: <IoEllipsisHorizontalCircleOutline /> },
+  ];
 
   useEffect(() => {
     const fetchItens = async () => {
@@ -30,7 +49,6 @@ export default function Catalogo() {
         ...doc.data(),
       }));
 
-      // Ordena por data (mais recente primeiro)
       lista.sort((a, b) => b.dataCriacao - a.dataCriacao);
 
       setItens(lista);
@@ -39,14 +57,21 @@ export default function Catalogo() {
     fetchItens();
   }, []);
 
-  // 🔍 FILTRO
+  const toggleFiltro = (cat) => {
+    if (filtros.includes(cat)) {
+      setFiltros(filtros.filter((c) => c !== cat));
+    } else {
+      setFiltros([...filtros, cat]);
+    }
+  };
+
   const itensFiltrados = itens.filter((item) => {
     const nome = item.nome ? item.nome.toLowerCase() : "";
     const termo = busca.toLowerCase();
 
     return (
       nome.includes(termo) &&
-      (categoria === "" || item.categoria === categoria)
+      (filtros.length === 0 || filtros.includes(item.categoria))
     );
   });
 
@@ -55,7 +80,7 @@ export default function Catalogo() {
       <Navbar />
 
       <div style={styles.layoutMain}>
-        {/* ===== FILTROS ===== */}
+        {/* BUSCA */}
         <div style={styles.topBar}>
           <input
             placeholder="Buscar item..."
@@ -63,34 +88,52 @@ export default function Catalogo() {
             onChange={(e) => setBusca(e.target.value)}
             style={styles.inputCatalogo}
           />
-
-          <select
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
-            style={styles.inputCatalogo}
-          >
-            <option value="">Todas categorias</option>
-            <option value="eletronico">Eletrônico</option>
-            <option value="roupa">Roupa</option>
-            <option value="material">Material</option>
-          </select>
         </div>
 
-        {/* ===== GRID ===== */}
+        {/* CHIPS DE CATEGORIA */}
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            flexWrap: "wrap",
+            marginBottom: "20px",
+          }}
+        >
+          {categorias.map((cat) => (
+            <div
+              key={cat.id}
+              onClick={() => toggleFiltro(cat.id)}
+              style={{
+                padding: "6px 14px",
+                borderRadius: "20px",
+                cursor: "pointer",
+                backgroundColor: filtros.includes(cat.id) ? "#4a90e2" : "#ddd",
+                color: filtros.includes(cat.id) ? "#fff" : "#333",
+                fontWeight: "500",
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                transition: "0.2s",
+              }}
+            >
+              {cat.icon}
+              {filtros.includes(cat.id) ? `${cat.label} ✕` : cat.label}
+            </div>
+          ))}
+        </div>
+
+        {/* GRID DE ITENS */}
         <div style={styles.gridItens}>
           {itensFiltrados.map((item) => (
             <div key={item.id} style={styles.cardItem}>
-              
-              {/* IMAGEM */}
               <div style={styles.imagemContainer}>
                 <img
-                  src={item.imagem}
+                  src={item.imagem || "/public/icone-logo.png"}
                   alt={item.nome}
                   style={styles.imagemItem}
                 />
               </div>
 
-              {/* INFO */}
               <div style={styles.infoContainer}>
                 <h3 style={styles.tituloItem}>{item.nome}</h3>
 
@@ -103,12 +146,13 @@ export default function Catalogo() {
 
                 <p style={styles.data}>
                   {item.dataManual
-                    ? new Date(item.dataManual + "T12:00:00").toLocaleDateString("pt-BR")
+                    ? new Date(item.dataManual + "T12:00:00").toLocaleDateString(
+                        "pt-BR"
+                      )
                     : "Sem data"}
                 </p>
               </div>
 
-              {/* BOTÃO */}
               <button
                 style={styles.botaoCatalogo}
                 onClick={() => setModalItem(item)}
@@ -119,7 +163,7 @@ export default function Catalogo() {
           ))}
         </div>
 
-        {/* ===== MODAL ===== */}
+        {/* MODAL */}
         {modalItem && (
           <div style={styles.modalOverlay}>
             <div style={styles.modal}>
@@ -138,7 +182,9 @@ export default function Catalogo() {
                 Aceito os termos
               </label>
 
-              <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
+              <div
+                style={{ marginTop: "20px", display: "flex", gap: "10px" }}
+              >
                 <button
                   style={styles.botaoCatalogo}
                   disabled={!aceitou}
