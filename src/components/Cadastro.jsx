@@ -218,6 +218,7 @@ export default function Cadastro() {
           <optgroup label="Eletrônicos">
             <option value="Celular">Celular</option>
             <option value="Carregador / Cabo">Carregador / Cabo</option>
+            <option value="Fone de ouvido">Fone de ouvido</option>
           </optgroup>
           <option value="Outro">Outro</option>
         </select>
@@ -228,7 +229,11 @@ export default function Cadastro() {
           value={form.descricao}
           onChange={handleChange}
           rows={3}
-          style={styles.input(false)}
+          style={{
+            ...styles.input(false), // Mantém o que você já tem
+            resize: "none", // Trava o tamanho
+            overflowY: "auto", // Ativa o scroll vertical
+          }}
         />
 
         <input

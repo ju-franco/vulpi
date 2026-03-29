@@ -17,6 +17,9 @@ import {
   IoCardOutline,
   IoBagOutline,
   IoEllipsisHorizontalCircleOutline,
+  IoColorPalette,
+  IoSearch,
+  IoClose,
 } from "react-icons/io5";
 
 export default function Catalogo() {
@@ -37,7 +40,11 @@ export default function Catalogo() {
     { id: "garrafa", label: "Garrafa", icon: <IoWaterOutline /> },
     { id: "cartao", label: "Cartão", icon: <IoCardOutline /> },
     { id: "mochila", label: "Mochila", icon: <IoBagOutline /> },
-    { id: "outros", label: "Outros", icon: <IoEllipsisHorizontalCircleOutline /> },
+    {
+      id: "outros",
+      label: "Outros",
+      icon: <IoEllipsisHorizontalCircleOutline />,
+    },
   ];
 
   useEffect(() => {
@@ -82,12 +89,21 @@ export default function Catalogo() {
       <div style={styles.layoutMain}>
         {/* BUSCA */}
         <div style={styles.topBar}>
-          <input
-            placeholder="Buscar item..."
-            value={busca}
-            onChange={(e) => setBusca(e.target.value)}
-            style={styles.inputCatalogo}
-          />
+          <div style={styles.containerBusca}>
+            <IoSearch style={styles.iconeBusca} />
+            <input
+              placeholder="Buscar item pelo nome..."
+              value={busca}
+              onChange={(e) => setBusca(e.target.value)}
+              style={styles.inputCatalogo}
+            />
+            {busca && (
+              <IoClose
+                style={styles.iconeLimpar}
+                onClick={() => setBusca("")}
+              />
+            )}
+          </div>
         </div>
 
         {/* CHIPS DE CATEGORIA */}
@@ -107,7 +123,9 @@ export default function Catalogo() {
                 padding: "6px 14px",
                 borderRadius: "20px",
                 cursor: "pointer",
-                backgroundColor: filtros.includes(cat.id) ? "#4a90e2" : "#ddd",
+                backgroundColor: filtros.includes(cat.id)
+                  ? "#F15F0A"
+                  : "#f1f1f1a2",
                 color: filtros.includes(cat.id) ? "#fff" : "#333",
                 fontWeight: "500",
                 display: "flex",
@@ -139,16 +157,17 @@ export default function Catalogo() {
 
                 <p style={styles.local}>
                   <IoMdPin />
-                  {item.local} {item.cor && ` | ${item.cor}`}
+                  {item.local} <IoColorPalette />
+                  {item.cor && ` ${item.cor}`}
                 </p>
 
                 <span style={styles.tagTipo}>{item.tipo}</span>
 
                 <p style={styles.data}>
                   {item.dataManual
-                    ? new Date(item.dataManual + "T12:00:00").toLocaleDateString(
-                        "pt-BR"
-                      )
+                    ? new Date(
+                        item.dataManual + "T12:00:00",
+                      ).toLocaleDateString("pt-BR")
                     : "Sem data"}
                 </p>
               </div>
@@ -182,9 +201,7 @@ export default function Catalogo() {
                 Aceito os termos
               </label>
 
-              <div
-                style={{ marginTop: "20px", display: "flex", gap: "10px" }}
-              >
+              <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
                 <button
                   style={styles.botaoCatalogo}
                   disabled={!aceitou}

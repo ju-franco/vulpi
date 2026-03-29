@@ -90,14 +90,42 @@ export const styles = {
     display: "flex",
     gap: "10px",
     marginBottom: "20px",
+    width: "100%",
+  },
+
+  containerBusca: {
+    position: "relative",
+    flex: 1,
+    display: "flex",
+    alignItems: "center",
+  },
+
+  iconeBusca: {
+    position: "absolute",
+    left: "15px",
+    color: "#999",
+    fontSize: "20px",
   },
 
   inputCatalogo: {
-    padding: "12px",
+    width: "100%",
+    padding: "12px 15px 12px 45px", // 45px na esquerda para dar espaço ao ícone
     borderRadius: "600px",
     border: "1px solid #ddd",
-    flex: 1,
     background: "#fff",
+    fontSize: "14px",
+    outline: "none",
+    transition: "0.2s",
+  },
+
+// NOVO ESTILO PARA O BOTÃO DE APAGAR
+  iconeLimpar: {
+    position: "absolute",
+    right: "15px", // Fica no canto direito
+    color: "#999",
+    fontSize: "22px",
+    cursor: "pointer",
+    transition: "color 0.2s",
   },
 
   /* ====== GRID ITENS CATÁLOGO ====== */
@@ -149,7 +177,7 @@ export const styles = {
   tituloItem: {
     fontSize: "15px",
     fontWeight: "700",
-    color: "#2D3436",
+    color: "#333",
   },
 
   local: {
@@ -191,13 +219,12 @@ export const styles = {
   /* ====== LAYOUT GERAL  ====== */
 
   layoutMain: {
-  marginLeft: "260px",
-  minHeight: "100vh",
-  padding: "40px",
-  boxSizing: "border-box",
-
-  overflowY: "auto", // 🔥 ISSO AQUI
-},
+    marginLeft: "260px",
+    minHeight: "100vh",
+    padding: "40px",
+    boxSizing: "border-box",
+    overflowY: "auto",
+  },
 
   /* ====== SIDEBAR (DESIGN PREMIUM) ====== */
 
@@ -248,7 +275,7 @@ export const styles = {
     borderRadius: "14px", // Arredondamento moderno (super-ellipse)
     cursor: "pointer",
     transition: "all 0.3s ease",
-    color: "#b2bec3", // Cor de texto não ativo
+    color: "#b8c3b2", // Cor de texto não ativo
     fontSize: "15px",
     fontWeight: "500",
   },
