@@ -107,10 +107,10 @@ export default function Navbar() {
             alt="Vulpi Logo"
             style={{
               width: "170px",
-              height: "auto", 
-              marginTop: "30px", 
-              display: "block", 
-              marginLeft: "20px", 
+              height: "auto",
+              marginTop: "30px",
+              display: "block",
+              marginLeft: "20px",
             }}
           />
         </div>
@@ -170,8 +170,8 @@ export default function Navbar() {
             style={styles.menuItem}
             onClick={handleLogout}
             onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                styles.menuItemHover.backgroundColor)
+            (e.currentTarget.style.backgroundColor =
+              styles.menuItemHover.backgroundColor)
             }
             onMouseLeave={(e) =>
               (e.currentTarget.style.backgroundColor = "transparent")

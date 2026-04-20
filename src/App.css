@@ -1,15 +1,21 @@
 /* Isso garante que nada tenha margem ou espaço sobrando no navegador */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-html, body, #root {
+
+html,
+body,
+#root {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
-  overflow: hidden; /* Impede qualquer barra de rolagem */
+  overflow: hidden;
+  /* Impede qualquer barra de rolagem */
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif; /* Define Poppins como prioridade */
+  font-family: 'Poppins', sans-serif;
+  /* Define Poppins como prioridade */
 }

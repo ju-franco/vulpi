@@ -166,8 +166,8 @@ export default function Catalogo() {
                 <p style={styles.data}>
                   {item.dataManual
                     ? new Date(
-                        item.dataManual + "T12:00:00",
-                      ).toLocaleDateString("pt-BR")
+                      item.dataManual + "T12:00:00",
+                    ).toLocaleDateString("pt-BR")
                     : "Sem data"}
                 </p>
               </div>

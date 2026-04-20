@@ -118,7 +118,7 @@ export const styles = {
     transition: "0.2s",
   },
 
-// NOVO ESTILO PARA O BOTÃO DE APAGAR
+  // NOVO ESTILO PARA O BOTÃO DE APAGAR
   iconeLimpar: {
     position: "absolute",
     right: "15px", // Fica no canto direito

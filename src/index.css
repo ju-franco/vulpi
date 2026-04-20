@@ -2,10 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif; /* Define como padrão para tudo */
+  font-family: 'Poppins', sans-serif;
+  /* Define como padrão para tudo */
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: auto;

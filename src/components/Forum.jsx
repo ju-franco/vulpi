@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { styles } from "../styles";
 import { db, auth } from "../firebase";
-import { 
-  collection, addDoc, getDocs, query, orderBy, 
-  serverTimestamp, doc, updateDoc, increment, getDoc, arrayUnion 
+import {
+  collection, addDoc, getDocs, query, orderBy,
+  serverTimestamp, doc, updateDoc, increment, getDoc, arrayUnion
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth"; // Importante para monitorar o login
-import { 
-  IoSend, IoArrowUpCircleOutline, 
-  IoArrowDownCircleOutline, IoCreateOutline, IoCheckmarkDoneOutline 
+import {
+  IoSend, IoArrowUpCircleOutline,
+  IoArrowDownCircleOutline, IoCreateOutline, IoCheckmarkDoneOutline
 } from "react-icons/io5";
 
 export default function Forum() {
@@ -114,7 +114,7 @@ export default function Forum() {
   return (
     <div style={styles.layoutMain}>
       <div style={{ maxWidth: "700px", margin: "0 auto" }}>
-        
+
         {/* BOX CRIAR POST */}
         <div style={{ backgroundColor: "#fff", padding: "20px", borderRadius: "20px", boxShadow: "0 4px 12px rgba(0,0,0,0.05)", marginBottom: "30px" }}>
           <div style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
@@ -140,9 +140,9 @@ export default function Forum() {
                 <span style={{ fontWeight: "600", fontSize: "14px" }}>{post.autorNome}</span>
                 <span style={{ backgroundColor: "#f1f1f1", padding: "2px 8px", borderRadius: "5px", fontSize: "11px" }}>#{post.tag}</span>
               </div>
-              
+
               <p style={{ fontSize: "15px", color: "#333" }}>{post.texto}</p>
-              
+
               {post.fotoItem && <img src={post.fotoItem} style={{ width: "100%", borderRadius: "10px", marginTop: "10px" }} />}
 
               {/* COMENTÁRIOS */}
@@ -154,10 +154,10 @@ export default function Forum() {
                   </div>
                 ))}
                 <div style={{ display: "flex", gap: "5px", marginTop: "10px" }}>
-                  <input 
-                    placeholder="Comentar..." 
-                    value={comentarioTexto[post.id] || ""} 
-                    onChange={e => setComentarioTexto({...comentarioTexto, [post.id]: e.target.value})}
+                  <input
+                    placeholder="Comentar..."
+                    value={comentarioTexto[post.id] || ""}
+                    onChange={e => setComentarioTexto({ ...comentarioTexto, [post.id]: e.target.value })}
                     style={{ ...styles.inputPerfil, flex: 1, padding: "5px 10px", marginBottom: 0 }}
                   />
                   <button onClick={() => handleComentar(post.id)} style={{ ...styles.botaoSalvar, width: "auto", padding: "0 10px", marginTop: 0 }}><IoSend /></button>
